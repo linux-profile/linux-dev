@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "linux-dev"
+version = "0.1.0"
+description = "🐧 Dev Linux Profile"
+authors = ["Fernando Celmer <email@fernandocelmer.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "linuxd"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
