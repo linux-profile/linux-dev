@@ -1,7 +1,7 @@
 # linux-dev
 
 ![GitHub Org's stars](https://img.shields.io/github/stars/linux-profile?label=LinuxProfile&style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/linux-profile/linux-profile?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/linux-profile/linux-dev?style=flat-square)
 
 ---
 
