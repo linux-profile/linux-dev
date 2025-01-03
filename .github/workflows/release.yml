@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - 'release/**'
+
+  push:
+    branches: [ "develop" ]
+
+permissions:
+  contents: write
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Branch name
+      shell: bash
+      run: echo ${GITHUB_REF##*/}
