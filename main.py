@@ -1,6 +1,6 @@
 from linux_profile.main import BuildCommand
 from linux_profile.base.command import BaseCommand
-from linux_dev.commands import HelloWorld
+from linuxd.commands import HelloWorld
 
 
 class ArgsCommand(BaseCommand):
