@@ -17,12 +17,12 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${GITHUB_REF##*/}
-        run: |
-          gh release create "$tag" \
-              --repo="$GITHUB_REPOSITORY" \
-              --title="${tag#v}" \
-              --generate-notes
+    - name: Create release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${GITHUB_REF##*/}
+      run: |
+        gh release create "$tag" \
+            --repo="$GITHUB_REPOSITORY" \
+            --title="${tag#v}" \
+            --generate-notes
