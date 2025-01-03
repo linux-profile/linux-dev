@@ -23,6 +23,7 @@ jobs:
         tag: ${GITHUB_REF##*/}
       run: |
         echo ${GITHUB_REF##*/}
+        echo ${tag#v}
         gh release create "$tag" \
             --repo="$GITHUB_REPOSITORY" \
             --title="${tag#v}" \
