@@ -17,6 +17,11 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Branch name
+    - name: Release
+      env:
+        PYPI_VERSION: ${GITHUB_REF##*/}
       shell: bash
-      run: echo ${GITHUB_REF##*/}
+
+    - name: Pypi
+      shell: bash
+      run: echo ${PYPI_VERSION}
