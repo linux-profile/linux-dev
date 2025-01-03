@@ -37,4 +37,4 @@
 
 ## License
 
-This project is licensed under the terms of the MIT license.
+This project is licensed under the terms of the GNU General Public License v3.0 license.
