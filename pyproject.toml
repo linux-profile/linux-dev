@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "linux-dev"
-version = "0.1.0"
+version = "0.1.0.dev-1"
 description = "🐧 Dev Linux Profile"
 authors = ["Fernando Celmer <email@fernandocelmer.com>"]
 license = "MIT"
@@ -8,7 +8,8 @@ readme = "README.md"
 packages = [{include = "linuxd"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
+linuxp = "^1.0.20"
 
 
 [build-system]
