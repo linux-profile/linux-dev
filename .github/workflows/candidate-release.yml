@@ -22,7 +22,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH_NAME: ${GITHUB_REF##*/}
       run: |
-        echo $env:BRANCH_NAME
+        echo $BRANCH_NAME
         gh release create $env:BRANCH_NAME \
             --repo="$GITHUB_REPOSITORY" \
             --title="$env:BRANCH_NAME" \
