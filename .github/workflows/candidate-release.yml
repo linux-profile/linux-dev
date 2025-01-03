@@ -22,8 +22,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TAG: ${GITHUB_REF##*/}
       run: |
-        gh config set prompt enabled
-        gh release create "$tag" \
+        gh release create "$TAG" \
             --repo="$GITHUB_REPOSITORY" \
             --title="${TAG}" \
             --generate-notes
