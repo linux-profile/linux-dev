@@ -20,11 +20,9 @@ jobs:
     - name: Create release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH_NAME: ${{ GITHUB_REF##*/ }}
       run: |
-        echo ${BRANCH_NAME}
-        echo $BRANCH_NAME
-        gh release create ${BRANCH_NAME} \
+        echo ${ GITHUB_REF##*/ }
+        gh release create ${GITHUB_REF##*/} \
             --repo="$GITHUB_REPOSITORY" \
-            --title="${BRANCH_NAME}" \
+            --title="${GITHUB_REF##*/}" \
             --generate-notes
