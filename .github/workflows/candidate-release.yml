@@ -18,7 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Create tag
+    - name: 📑 Create tag
       run: | 
         echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
 
@@ -32,8 +32,11 @@ jobs:
         git push origin --tags
       shell: bash
 
-    - name: Create release
+    - name: 🚀 Create release
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo $NEW_TAG
+        gh release create $NEW_TAG \
+            --repo="$GITHUB_REPOSITORY" \
+            --title="$NEW_TAG" \
+            --generate-notes
