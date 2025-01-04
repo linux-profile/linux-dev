@@ -23,7 +23,7 @@ jobs:
 
     - name: 📑 Create tag
       run: |
-        git ls-remote --tags origin
+        git ls-remote --tags origin | grep ${TAG##*/}
         echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
 
         if [[ -n "$OUTPUT" ]]; then
