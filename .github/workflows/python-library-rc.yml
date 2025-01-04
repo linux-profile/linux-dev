@@ -33,9 +33,9 @@ jobs:
 
         git tag $NEW_TAG
         git push origin --tags
-        echo $OUTPUT
-        echo $TAG
-        echo $NEW_TAG
+        echo output $OUTPUT
+        echo tag $TAG
+        echo new_tag $NEW_TAG
       shell: bash
 
     - name: ⚙️ Set up Python 3.11
