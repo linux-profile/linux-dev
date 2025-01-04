@@ -24,10 +24,12 @@ jobs:
     - name: 📑 Create tag
       run: |
         git ls-remote --tags origin | grep ${TAG##*/}
-        echo _VERSION="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
+        echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
 
-        if [[ -n "$_VERSION" ]]; then
-          echo NEW_TAG="${TAG##*/}-rc-`expr "${_VERSION:0-1}" + 1`" >> $GITHUB_ENV
+        echo output $OUTPUT
+
+        if [[ -n "$OUTPUT" ]]; then
+          echo NEW_TAG="${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`" >> $GITHUB_ENV
         else
           echo NEW_TAG="${TAG##*/}-rc-1" >> $GITHUB_ENV
         fi
@@ -35,7 +37,6 @@ jobs:
         git tag $NEW_TAG
         git push origin --tags
 
-        echo _VERSION $_VERSION
         echo tag $TAG
         echo new_tag $NEW_TAG
       shell: bash
