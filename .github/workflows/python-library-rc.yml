@@ -24,10 +24,10 @@ jobs:
     - name: 📑 Create tag
       run: |
         git ls-remote --tags origin | grep ${TAG##*/}
-        echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
+        echo _VERSION="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
 
-        if [[ -n "$OUTPUT" ]]; then
-          echo NEW_TAG="${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`" >> $GITHUB_ENV
+        if [[ -n "$_VERSION" ]]; then
+          echo NEW_TAG="${TAG##*/}-rc-`expr "${_VERSION:0-1}" + 1`" >> $GITHUB_ENV
         else
           echo NEW_TAG="${TAG##*/}-rc-1" >> $GITHUB_ENV
         fi
@@ -35,7 +35,7 @@ jobs:
         git tag $NEW_TAG
         git push origin --tags
 
-        echo output $OUTPUT
+        echo _VERSION $_VERSION
         echo tag $TAG
         echo new_tag $NEW_TAG
       shell: bash
@@ -45,38 +45,38 @@ jobs:
       with:
         python-version: "3.11"
 
-    - name: ⚙️ Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install tomli-w --no-cache-dir
+    # - name: ⚙️ Install dependencies
+    #   run: |
+    #     python -m pip install --upgrade pip
+    #     pip install tomli-w --no-cache-dir
 
-    - name: ✅ Update version
-      env:
-        NEW_TAG: ${{ env.NEW_TAG }}
-      run: |
-        python ./.github/python-library-rc.py
+    # - name: ✅ Update version
+    #   env:
+    #     NEW_TAG: ${{ env.NEW_TAG }}
+    #   run: |
+    #     python ./.github/python-library-rc.py
 
-    - name: 📝 Git Config
-      run: |
-        git config --global user.email bot@linuxprofile.com
-        git config --global user.name 🐧
-      shell: bash
+    # - name: 📝 Git Config
+    #   run: |
+    #     git config --global user.email bot@linuxprofile.com
+    #     git config --global user.name 🐧
+    #   shell: bash
 
-    - name: 📝 Git Process
-      run: |
-        if [[ `git status --porcelain` ]]; then
-          git add --all
-          git commit -a -m "Updated Version"
-          git push origin HEAD:$TAG --force
-        else
-          echo "WARNING: No changes were detected. git commit push action aborted."
-        fi
-      shell: bash
-      continue-on-error: true
+    # - name: 📝 Git Process
+    #   run: |
+    #     if [[ `git status --porcelain` ]]; then
+    #       git add --all
+    #       git commit -a -m "Updated Version"
+    #       git push origin HEAD:$TAG --force
+    #     else
+    #       echo "WARNING: No changes were detected. git commit push action aborted."
+    #     fi
+    #   shell: bash
+    #   continue-on-error: true
 
-    - name: 🚀 Create release
-      run: |
-        gh release create $NEW_TAG \
-            --repo="$GITHUB_REPOSITORY" \
-            --title="$NEW_TAG" \
-            --generate-notes
+    # - name: 🚀 Create release
+    #   run: |
+    #     gh release create $NEW_TAG \
+    #         --repo="$GITHUB_REPOSITORY" \
+    #         --title="$NEW_TAG" \
+    #         --generate-notes
