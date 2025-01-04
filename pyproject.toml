@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "linux-dev"
-version = ""
+version = "0.2.0-rc-1"
 description = "🐧 Dev Linux Profile"
 authors = [
     "Fernando Celmer <email@fernandocelmer.com>",
