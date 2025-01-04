@@ -10,6 +10,7 @@ permissions:
 
 env:
   TAG: ${{ github.ref_name }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   deployment:
@@ -20,19 +21,19 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: 📑 Create tag
-      run: | 
-        echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
+    # - name: 📑 Create tag
+    #   run: | 
+    #     echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
 
-        if [[ -n "$OUTPUT" ]]; then
-          echo NEW_TAG="${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`" >> $GITHUB_ENV
-        else
-          echo NEW_TAG="${TAG##*/}-rc-1" >> $GITHUB_ENV
-        fi
+    #     if [[ -n "$OUTPUT" ]]; then
+    #       echo NEW_TAG="${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`" >> $GITHUB_ENV
+    #     else
+    #       echo NEW_TAG="${TAG##*/}-rc-1" >> $GITHUB_ENV
+    #     fi
 
-        git tag $NEW_TAG
-        git push origin --tags
-      shell: bash
+    #     git tag $NEW_TAG
+    #     git push origin --tags
+    #   shell: bash
 
     - name: ⚙️ Set up Python 3.11
       uses: actions/setup-python@v3
@@ -44,11 +45,29 @@ jobs:
         python -m pip install --upgrade pip
         pip install tomli-w --no-cache-dir
 
-    - name: ✅ Run Script
+    - name: ✅ Update version
       env:
         NEW_TAG: ${{ env.NEW_TAG }}
       run: |
         python ./.github/python-library-rc.py
+
+    - name: 📝 Git Config
+      run: |
+        git config --global user.email bot@linuxprofile.com
+        git config --global user.name 🐧
+      shell: bash
+
+    - name: 📝 Git Process
+      run: |
+        if [[ `git status --porcelain` ]]; then
+          git add --all
+          git commit -a -m "Updated Version"
+          git push origin HEAD:$TAG --force
+        else
+          echo "WARNING: No changes were detected. git commit push action aborted."
+        fi
+      shell: bash
+      continue-on-error: true
 
     - name: 🚀 Create release
       run: |
