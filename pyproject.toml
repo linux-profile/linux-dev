@@ -2,16 +2,22 @@
 name = "linux-dev"
 version = "0.1.0.dev-1"
 description = "🐧 Dev Linux Profile"
-authors = ["Fernando Celmer <email@fernandocelmer.com>"]
+authors = [
+    "Fernando Celmer <email@fernandocelmer.com>",
+]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "linuxd"}]
+packages = [
+    { include = "linuxd" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.12"
 linuxp = "^1.0.20"
-
+tomli-w = "^1.1.0"
 
 [build-system]
-requires = ["poetry-core"]
+requires = [
+    "poetry-core",
+]
 build-backend = "poetry.core.masonry.api"

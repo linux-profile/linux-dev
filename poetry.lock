@@ -11,7 +11,18 @@ files = [
     {file = "linuxp-1.0.20.tar.gz", hash = "sha256:82721f0a92c433b926e56a073d5a1b6c9450d48c302964565b041e2139070d73"},
 ]
 
+[[package]]
+name = "tomli-w"
+version = "1.1.0"
+description = "A lil' TOML writer"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "tomli_w-1.1.0-py3-none-any.whl", hash = "sha256:1403179c78193e3184bfaade390ddbd071cba48a32a2e62ba11aae47490c63f7"},
+    {file = "tomli_w-1.1.0.tar.gz", hash = "sha256:49e847a3a304d516a169a601184932ef0f6b61623fe680f836a2aa7128ed0d33"},
+]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "5cc3e009d4f3b8a7faf1c6539c3a98a23f315a9085c77791cf9bf8012c4071ff"
+content-hash = "aa3406f174bdf518e314bc594a309f9b84a6de9802235061174ba8081d314495"

@@ -17,6 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: 📑 Create tag
       run: | 
@@ -32,9 +34,18 @@ jobs:
         git push origin --tags
       shell: bash
 
-    - name: 🚀 Create release
+    - name: ⚙️ Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install tomli-w --no-cache-dir
+
+    - name: ✅ Run Script
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        FTP_HOST: ${{ $NEW_TAG }}
+      run: |
+        python ./.github/python-library-rc.py
+
+    - name: 🚀 Create release
       run: |
         gh release create $NEW_TAG \
             --repo="$GITHUB_REPOSITORY" \
