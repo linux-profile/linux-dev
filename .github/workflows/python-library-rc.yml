@@ -33,6 +33,8 @@ jobs:
 
         git tag $NEW_TAG
         git push origin --tags
+        echo $OUTPUT
+        echo $TAG
         echo $NEW_TAG
       shell: bash
 
