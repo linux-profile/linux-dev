@@ -17,15 +17,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Create tag
+      env:
+        OUTPUT: ${{ $(git ls-remote --tags origin | grep ${TAG##*/}) }}
       run: |
         echo ${TAG}
         echo ${TAG##*/}
 
-        OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})"
         echo "${OUTPUT:0-1}"
 
         if [[ -n "$OUTPUT" ]]; then
