@@ -21,19 +21,19 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-    # - name: 📑 Create tag
-    #   run: | 
-    #     echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
+    - name: 📑 Create tag
+      run: | 
+        echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
 
-    #     if [[ -n "$OUTPUT" ]]; then
-    #       echo NEW_TAG="${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`" >> $GITHUB_ENV
-    #     else
-    #       echo NEW_TAG="${TAG##*/}-rc-1" >> $GITHUB_ENV
-    #     fi
+        if [[ -n "$OUTPUT" ]]; then
+          echo NEW_TAG="${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`" >> $GITHUB_ENV
+        else
+          echo NEW_TAG="${TAG##*/}-rc-1" >> $GITHUB_ENV
+        fi
 
-    #     git tag $NEW_TAG
-    #     git push origin --tags
-    #   shell: bash
+        git tag $NEW_TAG
+        git push origin --tags
+      shell: bash
 
     - name: ⚙️ Set up Python 3.11
       uses: actions/setup-python@v3
