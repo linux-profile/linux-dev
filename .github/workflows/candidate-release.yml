@@ -22,6 +22,8 @@ jobs:
 
     - name: Create tag
       run: |
+        echo ${TAG}
+        echo ${TAG##*/}
         OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})"
         echo "${OUTPUT:0-1}"
         if [[ -n "$OUTPUT" ]]
