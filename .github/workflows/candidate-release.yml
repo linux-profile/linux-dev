@@ -20,14 +20,16 @@ jobs:
 
     - name: Create tag
       run: |
-        echo VERSION="${TAG##*/}" >> $GITHUB_ENV
-        echo RC="$(git ls-remote --tags origin | grep $VERSION" >> $GITHUB_ENV
-        echo "${RC:0-1}"
+        echo CURRENT_VERSION="${TAG##*/}"
+        echo $CURRENT_VERSION
 
-        if [[ -n "$RC" ]]; then
-          echo "${TAG}-rc-`expr "${RC:0-1}" + 1`"
+        echo OUTPUT="$(git ls-remote --tags origin | grep $CURRENT_VERSION" >> $GITHUB_ENV
+        echo "${OUTPUT:0-1}"
+
+        if [[ -n "$OUTPUT" ]]; then
+          echo "${CURRENT_VERSION}-rc-`expr "${OUTPUT:0-1}" + 1`"
         else
-          echo "${TAG}-rc-1"
+          echo "${CURRENT_VERSION}-rc-1"
         fi
       shell: bash
 
