@@ -20,12 +20,18 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Create release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create tag
       run: |
-        echo ${TAG##*/}
-        gh release create ${TAG##*/} \
-            --repo="$GITHUB_REPOSITORY" \
-            --title="${TAG##*/}rc" \
-            --generate-notes
+        OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})"
+        echo "${OUTPUT:0-1}"
+      shell: bash
+
+    # - name: Create release
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   run: |
+    #     echo ${TAG##*/}
+    #     gh release create ${TAG##*/} \
+    #         --repo="$GITHUB_REPOSITORY" \
+    #         --title="${TAG##*/}rc" \
+    #         --generate-notes
