@@ -25,7 +25,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo ${TAG##*/}
-        gh release create ${TAG##*/} \
+        gh release create ${TAG##*/}rc \
             --repo="$GITHUB_REPOSITORY" \
-            --title="${TAG##*/}" \
+            --title="${TAG##*/}rc" \
             --generate-notes
