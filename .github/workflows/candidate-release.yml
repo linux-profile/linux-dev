@@ -23,19 +23,17 @@ jobs:
         echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
 
         if [[ -n "$OUTPUT" ]]; then
-          git tag "${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`"
+          echo NEW_TAG="${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`" >> $GITHUB_ENV
         else
-          git tag "${TAG##*/}-rc-1"
+          echo NEW_TAG="${TAG##*/}-rc-1" >> $GITHUB_ENV
         fi
+
+        git tag $NEW_TAG
         git push origin --tags
       shell: bash
 
-    # - name: Create release
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   run: |
-    #     echo ${TAG##*/}
-    #     gh release create ${TAG##*/} \
-    #         --repo="$GITHUB_REPOSITORY" \
-    #         --title="${TAG##*/}rc" \
-    #         --generate-notes
+    - name: Create release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo $NEW_TAG
