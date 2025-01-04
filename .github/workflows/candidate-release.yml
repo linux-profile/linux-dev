@@ -21,13 +21,13 @@ jobs:
     - name: Create tag
       run: | 
         echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
-        echo "${OUTPUT:0-1}"
 
         if [[ -n "$OUTPUT" ]]; then
-          echo "${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`"
+          git tag "${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`"
         else
-          echo "${TAG##*/}-rc-1"
+          git tag "${TAG##*/}-rc-1"
         fi
+        git push origin --tags
       shell: bash
 
     # - name: Create release
