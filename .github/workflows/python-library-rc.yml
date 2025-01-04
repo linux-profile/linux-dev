@@ -41,7 +41,7 @@ jobs:
 
     - name: ✅ Run Script
       env:
-        FTP_HOST: ${{ $NEW_TAG }}
+        NEW_TAG: ${{ env.NEW_TAG }}
       run: |
         python ./.github/python-library-rc.py
 
