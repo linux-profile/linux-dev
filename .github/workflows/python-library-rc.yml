@@ -22,7 +22,8 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: 📑 Create tag
-      run: | 
+      run: |
+        git ls-remote --tags origin
         echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
 
         if [[ -n "$OUTPUT" ]]; then
@@ -33,6 +34,7 @@ jobs:
 
         git tag $NEW_TAG
         git push origin --tags
+
         echo output $OUTPUT
         echo tag $TAG
         echo new_tag $NEW_TAG
