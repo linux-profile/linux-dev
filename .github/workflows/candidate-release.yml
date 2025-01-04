@@ -24,10 +24,11 @@ jobs:
       run: |
         echo ${TAG}
         echo ${TAG##*/}
+
         OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})"
         echo "${OUTPUT:0-1}"
-        if [[ -n "$OUTPUT" ]]
-        then
+
+        if [[ -n "$OUTPUT" ]]; then
             echo "${TAG}-rc-`expr "${OUTPUT:0-1}" + 1`"
         else
             echo "${TAG}-rc-1"
