@@ -33,6 +33,7 @@ jobs:
 
         git tag $NEW_TAG
         git push origin --tags
+        echo $NEW_TAG
       shell: bash
 
     - name: ⚙️ Set up Python 3.11
