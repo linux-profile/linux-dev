@@ -23,10 +23,10 @@ jobs:
 
     - name: 📑 Create tag
       run: | 
-        echo OUTPUT="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
+        echo VARIAVEL_ABC="$(git ls-remote --tags origin | grep ${TAG##*/})" >> $GITHUB_ENV
 
-        if [[ -n "$OUTPUT" ]]; then
-          echo NEW_TAG="${TAG##*/}-rc-`expr "${OUTPUT:0-1}" + 1`" >> $GITHUB_ENV
+        if [[ -n "$VARIAVEL_ABC" ]]; then
+          echo NEW_TAG="${TAG##*/}-rc-`expr "${VARIAVEL_ABC:0-1}" + 1`" >> $GITHUB_ENV
         else
           echo NEW_TAG="${TAG##*/}-rc-1" >> $GITHUB_ENV
         fi
@@ -35,7 +35,7 @@ jobs:
         git push origin --tags
 
         echo tag $TAG
-        echo output $OUTPUT
+        echo output $VARIAVEL_ABC
         echo new_tag $NEW_TAG
       shell: bash
 
